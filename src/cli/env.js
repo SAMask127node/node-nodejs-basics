@@ -1,12 +1,15 @@
 export const parseEnv = () => {
   // Write your code here
+  const rssEnv = Object.entries(process.env).filter(
+    (env) => env[0].split("_")[0] === "RSS"
+  );
   let textToPrint = "";
-  const envKeys = Object.keys(process.env);
-  for (let index = 0; index < envKeys.length; index++) {
-    const env = envKeys[index];
-    if (env.split("_")[0] === "RSS") {
-      textToPrint = `${textToPrint}${env}=${process.env[env]}; `;
-    }
+  for (let index = 0; index < rssEnv.length; index++) {
+    const env = rssEnv[index];
+    textToPrint =
+      index === rssEnv.length - 1
+        ? `${textToPrint}${env[0]}=${env[1]}`
+        : `${textToPrint}${env[0]}=${env[1]}; `;
   }
   console.log(textToPrint);
 };
